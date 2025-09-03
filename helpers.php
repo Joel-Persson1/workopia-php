@@ -19,7 +19,7 @@ function basePath($path = '')
  * @param array $data
  * @return void
  */
-function loadView($name, $data)
+function loadView($name, $data = [])
 {
 
     $viewPath =  basePath("views/{$name}.view.php");
