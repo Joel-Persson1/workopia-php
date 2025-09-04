@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use App\Controllers\ErrorController;
+
 class Router
 {
     protected $routes = [];
@@ -75,18 +77,7 @@ class Router
         $this->registerRoute('DELETE', $uri, $controller);
     }
 
-    /**
-     * Load error page
-     * 
-     * @param int $httpCode
-     * @return void
-     */
-    public function error($httpCode = 404)
-    {
-        http_response_code($httpCode);
-        loadView("error/{$httpCode}");
-        exit;
-    }
+
 
     /**
      * Route the request
@@ -111,6 +102,6 @@ class Router
             }
         }
 
-        $this->error();
+        ErrorController::notFound();
     }
 }
