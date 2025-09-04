@@ -47,6 +47,7 @@ class ListingController
 
     /**
      * Show the details view of a listing
+     * @param array $params
      *
      * @return void
      */
@@ -147,5 +148,31 @@ class ListingController
 
             redirect('/listings');
         }
+    }
+
+    /** 
+     * Delete a listing
+     * 
+     * @param array $params
+     * 
+     * @return void
+     */
+    public function destory($params)
+    {
+        $id = $params['id'];
+
+        $params = [
+            'id' => $id
+        ];
+
+        $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+
+        if (!$listing) {
+            ErrorController::notFound('Listing not found');
+        }
+
+        $this->db->query('DELETE FROM listings WHERE id = :id', $params);
+
+        redirect('/listings');
     }
 }
